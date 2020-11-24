@@ -18,23 +18,25 @@
     <div id="mynetwork"></div>
     <script type="text/javascript">
       // create an array with nodes
-      var nodes = new vis.DataSet([
+      nodesArray=[
         { id: 1, label: "X" },
         { id: 2, label: "a" },
         { id: 3, label: "b" },
         { id: 4, label: "c" },
         { id: 5, label: "d" },
-      ]);
-
-      // create an array with edges
-      var edges = new vis.DataSet([
+      ];
+      var nodes = new vis.DataSet(nodesArray);
+      
+      var numberOfNodes=5;
+      var edgesArray=[
         { from: 1, to: 2 },
         { from: 1, to: 3 },
         { from: 1, to: 4 },
         { from: 1, to: 5 },
-        //{ from: 3, to: 3 },
-      ]);
-
+      ];
+      // create an array with edges
+      var edges = new vis.DataSet(edgesArray);
+      var numberOfEdges=4;
       // create a network
       var container = document.getElementById("mynetwork");
       var data = {
@@ -43,6 +45,192 @@
       };
       var options = {};
       var network = new vis.Network(container, data, options);
+      console.log(network.body);
+      //Wyszukiwanie Node'ów
+      function findNode(nodeLabel){
+        for(var i=0;i<nodesArray.length;i++){
+          if(nodeLabel==nodesArray[i].label){
+            return i;
+          }
+        }
+        return -1;
+      }
+
+      //Production 1 -- Working-Not Optimalized
+      function P1(){
+        var currentNodeIndex=findNode("X");
+        if(currentNodeIndex==-1){
+          console.log("ERROR - No vertices of such label found");
+          return;
+        }
+        var currentNode=nodesArray[currentNodeIndex];
+        var affectedEdges=[];
+        for(var i=0;i<edgesArray.length;i++){
+          if(edgesArray[i].to==currentNode.id || edgesArray[i].from==currentNode.id){
+            affectedEdges.push(edgesArray[i]);
+          }
+        }
+        currentNode.label="Y";
+        nodesArray.push({id: nodesArray.length+1,label: "c"});
+        nodesArray.push({id: nodesArray.length+1,label: "a"});
+        edgesArray.push({from: currentNode.id,to: nodesArray.length-1});
+        edgesArray.push({from: currentNode.id,to: nodesArray.length});
+        for(var i=0;i<affectedEdges.length;i++){
+          if(affectedEdges[i].from==currentNode.id){
+            switch(nodesArray[affectedEdges[i].to-1].label){
+              case "b":
+              case "X":
+                affectedEdges[i].from=nodesArray.length-1;
+              break;
+              case "d":
+                affectedEdges[i].from=nodesArray.length;
+              break;
+              default:
+              break;
+            }
+          }else{
+            switch(nodesArray[affectedEdges[i].from-1].label){
+              case "b":
+              case "X":
+                affectedEdges[i].to=nodesArray.length-1;
+              break;
+              case "d":
+                affectedEdges[i].to=nodesArray.length;
+              break;
+              default:
+              break;
+            }
+          }
+        }
+        nodes=new vis.DataSet(nodesArray);
+        edges=new vis.DataSet(edgesArray);
+        data={
+          nodes:nodes,
+          edges:edges
+        }
+        network.setData(data);
+      }
+      
+      //Production 2 -- Working - Not Optimalized
+      function P2(){
+        var currentNodeIndex=findNode("X");
+        if(currentNodeIndex==-1){
+          console.log("ERROR - No vertices of such label found");
+          return;
+        }
+        var currentNode=nodesArray[currentNodeIndex];
+        var affectedEdges=[];
+        for(var i=0;i<edgesArray.length;i++){
+          if(edgesArray[i].to==currentNode.id || edgesArray[i].from==currentNode.id){
+            affectedEdges.push(edgesArray[i]);
+          }
+        }
+        nodesArray.push({id: nodesArray.length+1,label: "b"});
+        nodesArray.push({id: nodesArray.length+1,label: "d"});
+        edgesArray.push({from: currentNode.id,to: nodesArray.length-1});
+        edgesArray.push({from: currentNode.id,to: nodesArray.length});
+        for(var i=0;i<affectedEdges.length;i++){
+          if(affectedEdges[i].from==currentNode.id){
+            switch(nodesArray[affectedEdges[i].to-1].label){
+              case "a":
+              case "X":
+                affectedEdges[i].from=nodesArray.length-1; //Przejście na b
+              break;
+              case "c":
+                affectedEdges[i].from=nodesArray.length; //Przejście na d
+              break;
+              default:
+              break;
+            }
+          }else{
+            switch(nodesArray[affectedEdges[i].from-1].label){
+              case "a":
+              case "X":
+                affectedEdges[i].to=nodesArray.length-1;
+              break;
+              case "c":
+                affectedEdges[i].to=nodesArray.length;
+              break;
+              default:
+              break;
+            }
+          }
+        }
+        nodes=new vis.DataSet(nodesArray);
+        edges=new vis.DataSet(edgesArray);
+        data={
+          nodes:nodes,
+          edges:edges
+        }
+        network.setData(data);
+      }
+      
+      //Production 3 -- Working - Not Optimalized
+      function P3(){
+        var currentNodeIndex=findNode("Y");
+        if(currentNodeIndex==-1){
+          console.log("ERROR - No vertices of such label found");
+          return;
+        }
+        var currentNode=nodesArray[currentNodeIndex];
+        var affectedEdges=[];
+        for(var i=0;i<edgesArray.length;i++){
+          if(edgesArray[i].to==currentNode.id || edgesArray[i].from==currentNode.id){
+            affectedEdges.push(edgesArray[i]);
+          }
+        }
+        nodesArray.push({id: nodesArray.length+1,label: "X"});
+        edgesArray.push({from: currentNode.id,to: nodesArray.length});
+        for(var i=0;i<affectedEdges.length;i++){
+          if(affectedEdges[i].from==currentNode.id){
+            switch(nodesArray[affectedEdges[i].to-1].label){
+              case "a":
+              case "c":
+              case "X":
+                affectedEdges[i].from=nodesArray.length; //Przejście na X
+              break;
+              default:
+              break;
+            }
+          }else{
+            switch(nodesArray[affectedEdges[i].from-1].label){
+              case "a":
+              case "c":
+              case "X":
+                affectedEdges[i].to=nodesArray.length;
+              break;
+              default:
+              break;
+            }
+          }
+        }
+        nodes=new vis.DataSet(nodesArray);
+        edges=new vis.DataSet(edgesArray);
+        data={
+          nodes:nodes,
+          edges:edges
+        }
+        network.setData(data);
+      }
+
+      //Production 4 -- Working - Not Optimalized
+      function P4(){
+        var currentNodeIndex=findNode("Y");
+        if(currentNodeIndex==-1){
+          console.log("ERROR - No vertices of such label found");
+          return;
+        }
+        var currentNode=nodesArray[currentNodeIndex];
+        currentNode.label="c";
+        nodes=new vis.DataSet(nodesArray);
+        edges=new vis.DataSet(edgesArray);
+        data={
+          nodes:nodes,
+          edges:edges
+        }
+        network.setData(data);
+      }
+      console.log(network);
     </script>
   </body>
 </html>
