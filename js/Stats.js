@@ -12,5 +12,12 @@ class Stats {
         this.avgDegree = 0
         this.avgDegreeV = 0
         this.avgNodesInComponentNumber = 0
+        this.update()
+    }
+    update() {
+        let s = document.getElementById("statistics")
+        s.innerText = ""
+        s.innerText += "Liczba wierzchołków: " + this.nodesNumber + "\n";
+        s.innerText += "Liczba krawędzi: " + this.edgesNumber + "\n"
     }
 }
