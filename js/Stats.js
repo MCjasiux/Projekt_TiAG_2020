@@ -9,10 +9,28 @@ class Stats {
     avgNodesInComponentNumber = 0
     labels = []
     labelStats = {}
+    connectedGraphs = {}
+    subGraphsNumber=0
     constructor(nodes, edges) {
         this.nodes = nodes
         this.edges = edges
         this.update()
+    }
+    dfs(nodeId, dict) {
+        this.edges.forEach(edge => {
+            if (dict[nodeId] == undefined) {
+                dict[nodeId] = nodeId
+            }
+            if (nodeId == edge.from && dict[edge.to] == undefined) {
+                dict[edge.to] = dict[nodeId]
+                this.dfs(edge.to, dict)
+            }
+            if (nodeId == edge.to && dict[edge.from] == undefined) {
+                dict[edge.from] = dict[nodeId]
+                this.dfs(edge.from, dict)
+            }
+
+        });
     }
     update() {
         this.nodesNumber = this.nodes.length
@@ -39,6 +57,22 @@ class Stats {
         this.labels.forEach(label => {
             s.innerText += "Średni stopień wierzchołka o etykiecie " + label + ": " + this.labelStats[label].edgesNumber / this.labelStats[label].nodesNumber + "\n"
         })
+        this.connectedGraphs = {}
+
+        this.nodes.forEach(node => {
+            if (this.connectedGraphs[node.id] == undefined) {
+                this.connectedGraphs[node.id] = node.id
+            }
+            this.dfs(node.id, this.connectedGraphs)
+        });
+        let temp = []
+        Object.keys(this.connectedGraphs).forEach(key => {
+            if (temp.indexOf(this.connectedGraphs[key]) == -1) {
+                temp.push(this.connectedGraphs[key])
+            }
+        });
+        this.subGraphsNumber=temp.length
+        s.innerText += "Liczba grafów spójnych:" + this.subGraphsNumber + "\n";
         console.log(this)
     }
 }
