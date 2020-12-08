@@ -8,9 +8,12 @@ class Graph {
         this.stats = new Stats(this.nodes, this.edges)
     }
     findLabel(label) {
-        this.nodes.forEach(node => {
-            if (label == node.label) return node
-        });
+        for(var i=0;i<this.nodes.length;i++){
+            if (this.nodes[i].label==label) return this.nodes[i]
+            
+        }
+
+        return -1
     }
 
 }

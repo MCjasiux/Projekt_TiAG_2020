@@ -20,8 +20,162 @@
     <script src="js/Production.js"></script>
     <script src="js/Productions.js"></script>
     <script src="js/main.js"></script>
-    <textarea name="" id="textareaGraph" cols="70" rows="10" placeholder="Graph"></textarea><br>
-    <textarea name="" id="textareaProductions" cols="70" rows="10" placeholder="Productions"></textarea><br>
+    <textarea name="" id="textareaGraph" cols="70" rows="10" placeholder="Graph">
+      graph G_0 {
+        v1 -- v2;
+        v2 -- v3;
+        v3 -- v1;
+        v1 [label="A"];
+        v2 [label="B"];
+        v3 [label="C"];
+        }
+    </textarea><br>
+    <textarea name="" id="textareaProductions" cols="70" rows="10" placeholder="Productions">
+      graph LHS_1 {
+        v1 [label="A"];
+        }
+        
+        graph RHS_1 {
+        v1 -- v2;
+        v2 -- v3;
+        v3 -- v1;
+        v1 [label="A"];
+        v2 [label="A"];
+        v3 [label="A"];
+        }
+        
+        // PRODUKCJA 2
+        // ------------
+        graph LHS_2 {
+        v1 [label="A"];
+        }
+        
+        graph RHS_2 {
+        v1 -- v2;
+        v2 -- v3;
+        v3 -- v1;
+        v1 [label="C"];
+        v2 [label="B"];
+        v3 [label="B"];
+        }
+        
+        // PRODUKCJA 3
+        //------------
+        graph LHS_3 {
+        v1 [label="A"];
+        }
+        
+        graph RHS_3 {
+        v1 -- v2;
+        v2 -- v3;
+        v3 -- v1;
+        v1 [label="A"];
+        v2 [label="B"];
+        v3 [label="C"];
+        }
+        
+        // PRODUKCJA 4
+        //------------
+        graph LHS_4 {
+        v1 [label="A"];
+        }
+        
+        graph RHS_4 {
+        v1 [label="a"];
+        }
+        
+        // PRODUKCJA 5
+        //------------
+        graph LHS_5 {
+        v1 [label="B"];
+        }
+        
+        graph RHS_5 {
+        v1 [label="b"];
+        }
+        
+        // PRODUKCJA 6
+        // ------------
+        graph LHS_6 {
+        v1 [label="C"];
+        }
+        
+        graph RHS_6 {
+        v1 [label="c"];
+        }
+        
+        // PRODUKCJA 7
+        //------------
+        graph LHS_7 {
+        v1 [label="A"];
+        }
+        
+        graph RHS_7 {
+        v1 -- v2;
+        v1 [label="B"];
+        v2 [label="A"];
+        }
+        
+        // PRODUKCJA 8
+        //------------
+        graph LHS_8 {
+        v1 [label="A"];
+        }
+        
+        graph RHS_8 {
+        v1 -- v2;
+        v1 [label="C"];
+        v2 [label="A"];
+        }
+        
+        // PRODUKCJA 9
+        //------------
+        graph LHS_9 {
+        v1 [label="B"];
+        }
+        
+        graph RHS_9 {
+        v1 -- v2;
+        v1 [label="A"];
+        v2 [label="B"];
+        }
+        
+        // PRODUKCJA 10
+        //------------
+        graph LHS_10 {
+        v1 [label="B"];
+        }
+        
+        graph RHS_10 {
+        v1 -- v2;
+        v1 [label="C"];
+        v2 [label="B"];
+        }
+        
+        // PRODUKCJA 11
+        //------------
+        graph LHS_11 {
+        v1 [label="C"];
+        }
+        
+        graph RHS_11 {
+        v1 -- v2;
+        v1 [label="A"];
+        v2 [label="C"];
+        }
+        
+        // PRODUKCJA 12
+        //------------
+        graph LHS_12 {
+        v1 [label="C"];
+        }
+        
+        graph RHS_12 {
+        v1 -- v2;
+        v1 [label="B"];
+        v2 [label="C"];
+        }
+    </textarea><br>
     <textarea name="" id="textareaTransformations" cols="70" rows="10" placeholder="Transformations">{
       "1":{"A":"A","B":"-","C":"-"},
       "2":{"A":"-","B":"B","C":"B"},

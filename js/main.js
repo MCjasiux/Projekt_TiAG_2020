@@ -13,7 +13,7 @@ function create() {
     network = new vis.Network(container, graphHistory[sel.value], options)
   })
   for (let i = 0; i < series.length; i++) {
-    const prodNumber = parseInt(series[i]);
+    const prodNumber = parseInt(series[i])-1;
     productions.productionList[prodNumber].apply(graph1)
     graphHistory.push(JSON.parse(JSON.stringify(graph1)))
     let o = document.createElement("option")

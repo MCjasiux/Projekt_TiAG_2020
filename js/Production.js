@@ -15,34 +15,40 @@ class Production {
         return -1;
     }
 
-    apply(Graph){
-        var firstObject=Graph.findLabel(this.LeftSide);
+    apply(graph){
+        console.log(this.name);
+        console.log(this.rightSideNodes);
+        console.log(this.rightSideEdges);
+        console.log(this.transformation); 
+        var firstObject=graph.findLabel(this.leftSide);
+        if(firstObject==-1) return;
         var affectedEdges=[];
         //Usunięcie krawędzi powiązanych z wierzchołkiem lewej strony produkcji
-        for(var i=0;i<Graph.edges.length;i++){
-            if(Graph.edges[i].from==firstObject.id || Graph.edges[i].to==firstObject.id){
-                affectedEdges.push(Graph.edges.splice(i,1));
+        for(var i=0;i<graph.edges.length;i++){
+            if(graph.edges[i].from==firstObject.id || graph.edges[i].to==firstObject.id){
+                affectedEdges.push(graph.edges.splice(i,1)[0]);
                 i--;
             }
         }
 
         //Przejście z lewej strony produkcji do prawej
         firstObject.label=this.rightSideNodes[0].label;
-        var rightBeginning=Graph.nodes.length;
+        var rightBeginning=graph.nodes.length;
         for(var i=1;i<this.rightSideNodes.length;i++){
-            Graph.nodes.push({id:rightBeginning+i-1,label:this.rightSideNodes[i].label});
+            graph.nodes.push({id:rightBeginning+i-1,label:this.rightSideNodes[i].label});
         }
         for(var i=0;i<this.rightSideEdges.length;i++){
             if(this.rightSideEdges[i].from==this.rightSideNodes[0].id){
-                Graph.edges.push({from:firstObject.id,to:rightBeginning+this.findDelta(this.rightSideEdges[i].to)});
+                graph.edges.push({from:firstObject.id,to:rightBeginning+this.findDelta(this.rightSideEdges[i].to)});
             }else if(this.rightSideEdges[i].to==this.rightSideNodes[0].id){
-                Graph.edges.push({from:rightBeginning+this.findDelta(this.rightSideEdges[i].from),to:firstObject.id});
+                graph.edges.push({from:rightBeginning+this.findDelta(this.rightSideEdges[i].from),to:firstObject.id});
             }else{
-                Graph.edges.push({from:rightBeginning+this.findDelta(this.rightSideEdges[i].from),to:rightBeginning+this.findDelta(this.rightSideEdges[i].to)})
+                graph.edges.push({from:rightBeginning+this.findDelta(this.rightSideEdges[i].from),to:rightBeginning+this.findDelta(this.rightSideEdges[i].to)})
             }
         }
 
         //Ponowne dołączenie krawędzi
+        console.log(affectedEdges);
         for(var i=0;i<affectedEdges.length;i++){
             var affectedNode;
             if(affectedEdges[i].from==firstObject.id){
@@ -50,19 +56,23 @@ class Production {
             }else{
                 affectedNode=affectedEdges[i].from;
             }
-
+            //console.log(firstObject);
+            //console.log(affectedEdges);
+            console.log(affectedNode);
             var searchedLabel=this.transformation[affectedNode.label];
             if(searchedLabel==firstObject.label){
-                Graph.edges.push({from:firstObject.id,to:affectedNode});
+                graph.edges.push({from:firstObject.id,to:affectedNode});
             }else if(searchedLabel!="-"){
-                for(var j=rightBeginning;j<Graph.nodes.length;j++){
-                    if(Graph.nodes[j].label==searchedLabel){
-                        Graph.edges.push({from:Graph.nodes[j].id,to:affectedNode});
+                for(var j=rightBeginning;j<graph.nodes.length;j++){
+                    if(graph.nodes[j].label==searchedLabel){
+                        graph.edges.push({from:graph.nodes[j].id,to:affectedNode});
                         break;
                     }
                 }
             }
-        } 
+        }
+        
+        console.log(graph);
         
     }
 }
