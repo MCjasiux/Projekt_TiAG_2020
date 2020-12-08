@@ -8,17 +8,17 @@ class Productions {
         let rightHands = productionString.match(/RHS.*?}/g)
         let transformations = JSON.parse(transformationString);
         console.log(transformations)
-        // console.log(leftHands)
-        // console.log(rightHands)
+         //console.log(leftHands)
+         //console.log(rightHands)
         for (let i = 0; i < leftHands.length; i++) {
             const elementLeft = leftHands[i];
             const elementRight = rightHands[i];
-             console.log(elementLeft)
-             console.log(transformations[i+1])
+             console.log(elementLeft.match(/\".*?"/))
+             //console.log(transformations[i+1])
             var parsedRightHand = vis.parseDOTNetwork(elementRight);
             let productionObj = {
                 name: i + 1,
-                leftSide: elementLeft.match(/\".*?"/)[0].slice(1, 2),   //tylko do literowych etykiet
+                leftSide: elementLeft.match(/\".*?"/)[0].slice(1, elementLeft.match(/\".*?"/)[0].length-1),   //tylko do literowych etykiet
                 rightSideNodes: parsedRightHand.nodes,
                 rightSideEdges: parsedRightHand.edges,
                 transformation: transformations[i+1]
