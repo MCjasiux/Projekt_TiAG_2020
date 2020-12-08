@@ -16,8 +16,8 @@ class Production {
     }
 
     apply(Graph){
-        firstObject=Graph.findLabel(this.LeftSide);
-        affectedEdges=[];
+        var firstObject=Graph.findLabel(this.LeftSide);
+        var affectedEdges=[];
         //Usunięcie krawędzi powiązanych z wierzchołkiem lewej strony produkcji
         for(var i=0;i<Graph.edges.length;i++){
             if(Graph.edges[i].from==firstObject.id || Graph.edges[i].to==firstObject.id){

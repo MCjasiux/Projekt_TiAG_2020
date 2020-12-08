@@ -22,11 +22,24 @@
     <script src="js/main.js"></script>
     <textarea name="" id="textareaGraph" cols="70" rows="10" placeholder="Graph"></textarea><br>
     <textarea name="" id="textareaProductions" cols="70" rows="10" placeholder="Productions"></textarea><br>
-    <textarea name="" id="textareaTransformations" cols="70" rows="10"
-      placeholder="Transformations"></textarea>
-    <textarea name="" id="textareaProduct" cols="70" rows="2"
+    <textarea name="" id="textareaTransformations" cols="70" rows="10" placeholder="Transformations">{
+      "1":{"A":"A","B":"-","C":"-"},
+      "2":{"A":"-","B":"B","C":"B"},
+      "3":{"A":"A","B":"B","C":"C"},
+      "4":{"A":"-","B":"a","C":"a"},
+      "5":{"A":"b","B":"-","C":"c"},
+      "6":{"A":"c","B":"c","C":"-"},
+      "7":{"A":"B","B":"A","C":"-"},
+      "8":{"A":"C","B":"-","C":"A"},
+      "9":{"A":"B","B":"A","C":"-"},
+      "10":{"A":"-","B":"C","C":"B"},
+      "11":{"A":"C","B":"-","C":"A"},
+      "12":{"A":"-","B":"C","C":"B"}
+     }</textarea>
+    <textarea name="" id="textareaProductionSeries" cols="70" rows="2"
       placeholder="Select Productions: 1,2,3,4"></textarea>
-    <button onclick="create()">Create</button>
+    <button onclick="create()">Create and run</button>
+    <div id="controlPanel"></div>
   </div>
 
 

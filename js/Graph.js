@@ -7,5 +7,10 @@ class Graph {
         console.log(parsedData)
         this.stats = new Stats(this.nodes, this.edges)
     }
-    
+    findLabel(label) {
+        this.nodes.forEach(node => {
+            if (label == node.label) return node
+        });
+    }
+
 }

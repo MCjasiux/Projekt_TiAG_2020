@@ -2,14 +2,26 @@
     width: 600px;
     height: 400px;
     border: 1px solid lightgray;
-  }
-#statistics{
-    height: 80px;
 }
-body{
+
+#statistics {
+    
+}
+
+body {
     display: flex;
     flex-direction: row;
 }
-#leftSection,#rightSection{
-    flex:1;
+
+#leftSection, #rightSection {
+    flex: 1;
+}
+
+#controlPanel {
+    display: flex;
+    flex-wrap: row wrap;
+}
+
+#controlPanel button.number {
+    padding: 10px;
 }
