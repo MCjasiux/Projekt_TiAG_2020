@@ -10,7 +10,8 @@ class Stats {
     labels = []
     labelStats = {}
     connectedGraphs = {}
-    subGraphsNumber=0
+    labelTable = {}
+    subGraphsNumber = 0
     constructor(nodes, edges) {
         this.nodes = nodes
         this.edges = edges
@@ -43,10 +44,13 @@ class Stats {
                 this.labelStats[node.label] = { nodesNumber: 0, edgesNumber: 0 }
             }
             this.labelStats[node.label].nodesNumber++
+            if (this.labelTable[node.id] == undefined) {
+                this.labelTable[node.id] = node.label
+            }
         });
         this.edges.forEach(edge => {
-            this.labelStats[edge.to].edgesNumber++
-            this.labelStats[edge.from].edgesNumber++
+            this.labelStats[this.labelTable[edge.to]].edgesNumber++
+            this.labelStats[this.labelTable[edge.to]].edgesNumber++
         })
 
         let s = document.getElementById("statistics")
@@ -71,7 +75,7 @@ class Stats {
                 temp.push(this.connectedGraphs[key])
             }
         });
-        this.subGraphsNumber=temp.length
+        this.subGraphsNumber = temp.length
         s.innerText += "Liczba grafów spójnych:" + this.subGraphsNumber + "\n";
         console.log(this)
     }
