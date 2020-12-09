@@ -9,18 +9,15 @@
 </head>
 
 <body>
-  <div id="leftSection">
-    <div id="mynetwork"></div>
-    <div id="statistics"></div>
-  </div>
 
-  <div id="rightSection">
+
+  <div id="topSection">
     <script src="js/Graph.js"></script>
     <script src="js/Stats.js"></script>
     <script src="js/Production.js"></script>
     <script src="js/Productions.js"></script>
     <script src="js/main.js"></script>
-    <textarea name="" id="textareaGraph" cols="70" rows="10" placeholder="Graph and Productions">
+    <textarea name="" id="textareaGraph" cols="50" rows="10" placeholder="Graph and Productions">
       graph G_0 {
         v1 -- v2;
         v2 -- v3;
@@ -190,12 +187,18 @@
         "11":{"A":"C","B":"-","C":"A","a":"C","b":"-","c":"A"},
         "12":{"A":"-","B":"C","C":"B","a":"-","b":"C","c":"B"}
        }</textarea>
-    <textarea name="" id="textareaProductionSeries" cols="70" rows="2"
-      placeholder="Select Productions: 1,2,3,4"></textarea>
-    <button onclick="create()">Create and run</button>
-    <div id="controlPanel"></div>
-  </div>
+    <textarea name="" id="textareaProductionSeries" cols="40" rows="2"
+      placeholder="Select Productions: 1,2,3,4"></textarea><br>
+    <button onclick="create()">Create and run</button><br>
 
+  </div>
+  <div id="bottomSection">
+    <div id="statistics"></div>
+    <div id="mynetwork"></div>
+
+
+  </div>
+  <div id="controlPanel"></div>
 
 
 

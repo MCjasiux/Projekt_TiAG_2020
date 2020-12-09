@@ -1,10 +1,10 @@
 graphHistory = []
 let stats
 function create() {
-  graphHistory=[];
+  graphHistory = [];
   var container = document.getElementById("mynetwork");
   var options = {};
-  var constructionString=document.getElementById("textareaGraph").value;
+  var constructionString = document.getElementById("textareaGraph").value;
   constructionString = constructionString.replaceAll("\n", "");
   var graph1 = new Graph(constructionString.match(/G\_0.*?}/g)[0]);
   graphHistory.push(JSON.parse(JSON.stringify(graph1)))
@@ -13,12 +13,13 @@ function create() {
   let series = document.getElementById("textareaProductionSeries").value.split(",")
   let sel = document.createElement("select")
   let panel = document.getElementById("controlPanel")
-  panel.innerHTML=""
+  panel.innerHTML = ""
   panel.appendChild(sel)
   option0 = document.createElement("option")
   option0.innerText = 0
   option0.value = 0
   sel.appendChild(option0)
+
   sel.addEventListener("change", () => {
     let currentGraph = graphHistory[sel.value]
     network = new vis.Network(container, currentGraph, options)
@@ -39,5 +40,8 @@ function create() {
     sel.appendChild(o)
 
   }
+  let firstStats = new Stats(graphHistory[0].nodes, graphHistory[0].edges)
+  firstStats.update()
+  firstStats.write()
   console.log(graphHistory)
 }
