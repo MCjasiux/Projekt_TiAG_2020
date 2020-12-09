@@ -59,7 +59,7 @@ class Production {
             //console.log(firstObject);
             //console.log(affectedEdges);
             //console.log(affectedNode);
-            var searchedLabel=this.transformation[affectedNode.label];
+            var searchedLabel=this.transformation[graph.findById(affectedNode).label];
             if(searchedLabel==firstObject.label){
                 graph.edges.push({from:firstObject.id,to:affectedNode});
             }else if(searchedLabel!="-"){
