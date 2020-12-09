@@ -16,10 +16,10 @@ class Production {
     }
 
     apply(graph){
-        console.log(this.name);
-        console.log(this.rightSideNodes);
-        console.log(this.rightSideEdges);
-        console.log(this.transformation); 
+        //console.log(this.name);
+        //console.log(this.rightSideNodes);
+        //console.log(this.rightSideEdges);
+        //console.log(this.transformation); 
         var firstObject=graph.findLabel(this.leftSide);
         if(firstObject==-1) return;
         var affectedEdges=[];
@@ -48,7 +48,7 @@ class Production {
         }
 
         //Ponowne dołączenie krawędzi
-        console.log(affectedEdges);
+        //console.log(affectedEdges);
         for(var i=0;i<affectedEdges.length;i++){
             var affectedNode;
             if(affectedEdges[i].from==firstObject.id){
@@ -58,7 +58,7 @@ class Production {
             }
             //console.log(firstObject);
             //console.log(affectedEdges);
-            console.log(affectedNode);
+            //console.log(affectedNode);
             var searchedLabel=this.transformation[affectedNode.label];
             if(searchedLabel==firstObject.label){
                 graph.edges.push({from:firstObject.id,to:affectedNode});
@@ -72,7 +72,7 @@ class Production {
             }
         }
         
-        console.log(graph);
+        //console.log(graph);
         
     }
 }

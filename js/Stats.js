@@ -16,6 +16,7 @@ class Stats {
         this.nodes = nodes
         this.edges = edges
         this.update()
+        this.write()
     }
     dfs(nodeId, dict) {
         this.edges.forEach(edge => {
@@ -37,30 +38,26 @@ class Stats {
         this.nodesNumber = this.nodes.length
         this.edgesNumber = this.edges.length
         this.avgDegree = 2 * this.edgesNumber / this.nodesNumber
+        this.labels = []
         this.labelStats = {}
+        //console.log(this)
         this.nodes.forEach(node => {
             if (this.labels.indexOf(node.label) == -1) {
                 this.labels.push(node.label)
                 this.labelStats[node.label] = { nodesNumber: 0, edgesNumber: 0 }
             }
+
             this.labelStats[node.label].nodesNumber++
             if (this.labelTable[node.id] == undefined) {
                 this.labelTable[node.id] = node.label
             }
         });
         this.edges.forEach(edge => {
-            this.labelStats[this.labelTable[edge.to]].edgesNumber++
+            this.labelStats[this.labelTable[edge.from]].edgesNumber++
             this.labelStats[this.labelTable[edge.to]].edgesNumber++
         })
 
-        let s = document.getElementById("statistics")
-        s.innerText = ""
-        s.innerText += "Liczba wierzchołków: " + this.nodesNumber + "\n";
-        s.innerText += "Liczba krawędzi: " + this.edgesNumber + "\n"
-        s.innerText += "Średni stopień wierzchołka: " + this.avgDegree + "\n"
-        this.labels.forEach(label => {
-            s.innerText += "Średni stopień wierzchołka o etykiecie " + label + ": " + this.labelStats[label].edgesNumber / this.labelStats[label].nodesNumber + "\n"
-        })
+
         this.connectedGraphs = {}
 
         this.nodes.forEach(node => {
@@ -76,7 +73,18 @@ class Stats {
             }
         });
         this.subGraphsNumber = temp.length
+        // console.log(this)
+    }
+    write() {
+        let s = document.getElementById("statistics")
+        s.innerText = ""
+        s.innerText += "Liczba wierzchołków: " + this.nodesNumber + "\n";
+        s.innerText += "Liczba krawędzi: " + this.edgesNumber + "\n"
+        s.innerText += "Średni stopień wierzchołka: " + this.avgDegree + "\n"
+        this.labels.forEach(label => {
+            s.innerText += "Średni stopień wierzchołka o etykiecie " + label + ": " + this.labelStats[label].edgesNumber / this.labelStats[label].nodesNumber + "\n"
+        })
         s.innerText += "Liczba grafów spójnych:" + this.subGraphsNumber + "\n";
-        console.log(this)
+
     }
 }

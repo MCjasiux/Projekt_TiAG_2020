@@ -1,4 +1,5 @@
 graphHistory = []
+let stats
 function create() {
   var container = document.getElementById("mynetwork");
   var options = {};
@@ -9,12 +10,24 @@ function create() {
   let series = document.getElementById("textareaProductionSeries").value.split(",")
   let sel = document.createElement("select")
   let panel = document.getElementById("controlPanel")
+  panel.appendChild(sel)
+  option0 = document.createElement("option")
+  option0.innerText = 0
+  option0.value = 0
+  sel.appendChild(option0)
   sel.addEventListener("change", () => {
-    network = new vis.Network(container, graphHistory[sel.value], options)
+    let currentGraph = graphHistory[sel.value]
+    network = new vis.Network(container, currentGraph, options)
+    console.log(currentGraph)
+    stats = new Stats(currentGraph.nodes, currentGraph.edges)
+    stats.update()
+    stats.write()
   })
+
   for (let i = 0; i < series.length; i++) {
-    const prodNumber = parseInt(series[i])-1;
-    productions.productionList[prodNumber].apply(graph1)
+    const prodNumber = parseInt(series[i]) - 1;
+    let currentProduction = productions.productionList[prodNumber]
+    currentProduction.apply(graph1)
     graphHistory.push(JSON.parse(JSON.stringify(graph1)))
     let o = document.createElement("option")
     o.innerText = i + 1
@@ -22,4 +35,5 @@ function create() {
     sel.appendChild(o)
 
   }
+  console.log(graphHistory)
 }
